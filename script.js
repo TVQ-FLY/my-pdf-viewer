@@ -1,7 +1,5 @@
-// Đường dẫn tới file PDF của bạn (đặt cùng thư mục root với file html)
-const url = "./document.pdf";
+const url = './document.pdf';
 
-// Cấu hình worker cho PDF.js từ CDN
 pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
 
 let pdfDoc = null,
@@ -11,7 +9,8 @@ let pdfDoc = null,
     scale = 1.25;
 
 const canvas = document.getElementById('pdf-render'),
-      ctx = canvas.getContext('2d');
+      ctx = canvas.getContext('2d'),
+      pageInput = document.getElementById('page-num-input');
 
 // Hiển thị một trang cụ thể
 const renderPage = (num) => {
@@ -36,11 +35,10 @@ const renderPage = (num) => {
       }
     });
 
-    document.getElementById('page-num').textContent = num;
+    pageInput.value = num;
   });
 };
 
-// Đưa trang vào hàng đợi render nếu đang bận
 const queueRenderPage = (num) => {
   if (pageIsRendering) {
     pageNumIsPending = num;
@@ -49,34 +47,40 @@ const queueRenderPage = (num) => {
   }
 };
 
-// Chuyển trang trước
 const showPrevPage = () => {
   if (pageNum <= 1) return;
   pageNum--;
   queueRenderPage(pageNum);
 };
 
-// Chuyển trang sau
 const showNextPage = () => {
   if (pageNum >= pdfDoc.numPages) return;
   pageNum++;
   queueRenderPage(pageNum);
 };
 
-// Phóng to
 const zoomIn = () => {
   scale += 0.25;
   queueRenderPage(pageNum);
 };
 
-// Thu nhỏ
 const zoomOut = () => {
   if (scale <= 0.5) return;
   scale -= 0.25;
   queueRenderPage(pageNum);
 };
 
-// Tải tài liệu PDF
+// Xử lý khi người dùng gõ số trang rồi nhấn Enter hoặc đổi số
+pageInput.addEventListener('change', (e) => {
+  const num = parseInt(e.target.value);
+  if (num >= 1 && num <= pdfDoc.numPages) {
+    pageNum = num;
+    queueRenderPage(pageNum);
+  } else {
+    pageInput.value = pageNum; // Đổi lại số cũ nếu nhập quá giới hạn
+  }
+});
+
 pdfjsLib.getDocument(url).promise.then((pdfDoc_) => {
   pdfDoc = pdfDoc_;
   document.getElementById('page-count').textContent = pdfDoc.numPages;
@@ -86,7 +90,6 @@ pdfjsLib.getDocument(url).promise.then((pdfDoc_) => {
   alert('Không thể tải file PDF. Hãy đảm bảo file "document.pdf" nằm cùng thư mục!');
 });
 
-// Gán sự kiện click cho các nút
 document.getElementById('prev-page').addEventListener('click', showPrevPage);
 document.getElementById('next-page').addEventListener('click', showNextPage);
 document.getElementById('zoom-in').addEventListener('click', zoomIn);
