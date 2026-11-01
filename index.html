@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ôn Tập Đề Cương PDF</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- Nhúng thư viện PDF.js qua CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+</head>
+<body>
+
+  <!-- Thanh công cụ điều khiển -->
+  <header class="toolbar">
+    <div class="nav-controls">
+      <button id="prev-page">◀ Trang trước</button>
+      <span>Trang <span id="page-num">1</span> / <span id="page-count">-</span></span>
+      <button id="next-page">Trang sau ▶</button>
+    </div>
+    <div class="zoom-controls">
+      <button id="zoom-out">➖ Thu nhỏ</button>
+      <button id="zoom-in">➕ Phóng to</button>
+    </div>
+  </header>
+
+  <!-- Khu vực hiển thị file PDF -->
+  <main class="pdf-container">
+    <canvas id="pdf-render"></canvas>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
