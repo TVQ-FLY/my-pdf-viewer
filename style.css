@@ -10,8 +10,21 @@ body {
   display: flex;
   flex-direction: column;
   height: 100vh;
-  height: 100dvh; /* Chuẩn mới cho mobile tránh bị che thanh địa chỉ trình duyệt */
+  height: 100dvh;
   overflow: hidden;
+}
+
+/* Kiểu cho dòng thông báo chào mừng */
+.welcome-banner {
+  background: linear-gradient(135deg, #2563eb, #1e40af);
+  color: #ffffff;
+  text-align: center;
+  padding: 10px 15px;
+  font-size: 14px;
+  font-weight: 600;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 11;
+  letter-spacing: 0.3px;
 }
 
 /* Thanh công cụ điều khiển */
@@ -54,6 +67,34 @@ body {
   font-size: 14px;
 }
 
+/* Tùy chỉnh ô nhập số trang */
+.page-input-container {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background-color: #334155;
+  padding: 4px 10px;
+  border-radius: 6px;
+}
+
+#page-num-input {
+  width: 50px;
+  background-color: #1e293b;
+  color: #ffffff;
+  border: 1px solid #475569;
+  border-radius: 4px;
+  text-align: center;
+  padding: 4px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+#page-num-input::-webkit-inner-spin-button, 
+#page-num-input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
 /* Khu vực hiển thị file PDF */
 .pdf-container {
   flex: 1;
@@ -62,7 +103,7 @@ body {
   justify-content: center;
   align-items: flex-start;
   padding: 15px;
-  -webkit-overflow-scrolling: touch; /* Giúp vuốt mượt trên iPhone/Android */
+  -webkit-overflow-scrolling: touch;
 }
 
 canvas {
@@ -75,6 +116,11 @@ canvas {
 
 /* Tối ưu riêng cho màn hình điện thoại (dưới 768px) */
 @media screen and (max-width: 768px) {
+  .welcome-banner {
+    font-size: 12px;
+    padding: 8px 10px;
+  }
+
   .toolbar {
     flex-direction: column;
     align-items: stretch;
@@ -91,9 +137,5 @@ canvas {
     padding: 10px 8px;
     font-size: 13px;
     text-align: center;
-  }
-
-  .pdf-container {
-    padding: 8px;
   }
 }
