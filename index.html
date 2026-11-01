@@ -10,12 +10,21 @@
 </head>
 <body>
 
+  <!-- Dòng thông báo chào mừng -->
+  <div class="welcome-banner">
+    Chào mừng bạn đã đến với Website học bằng lái xe - Website by Trần Văn Quyền
+  </div>
+
   <!-- Thanh công cụ điều khiển -->
   <header class="toolbar">
     <div class="nav-controls">
-      <button id="prev-page">◀ Trang trước</button>
-      <span>Trang <span id="page-num">1</span> / <span id="page-count">-</span></span>
-      <button id="next-page">Trang sau ▶</button>
+      <button id="prev-page">◀ Trước</button>
+      <div class="page-input-container">
+        <span>Trang</span>
+        <input type="number" id="page-num-input" value="1" min="1">
+        <span>/ <span id="page-count">-</span></span>
+      </div>
+      <button id="next-page">Sau ▶</button>
     </div>
     <div class="zoom-controls">
       <button id="zoom-out">➖ Thu nhỏ</button>
