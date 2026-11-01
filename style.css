@@ -10,13 +10,15 @@ body {
   display: flex;
   flex-direction: column;
   height: 100vh;
+  height: 100dvh; /* Chuẩn mới cho mobile tránh bị che thanh địa chỉ trình duyệt */
+  overflow: hidden;
 }
 
-/* Thanh công cụ cố định ở phía trên */
+/* Thanh công cụ điều khiển */
 .toolbar {
   background-color: #1e293b;
   color: #ffffff;
-  padding: 10px 20px;
+  padding: 10px 16px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -24,17 +26,21 @@ body {
   top: 0;
   z-index: 10;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  flex-wrap: wrap;
+  gap: 8px;
 }
 
 .toolbar button {
   background-color: #3b82f6;
   color: #ffffff;
   border: none;
-  padding: 8px 14px;
+  padding: 8px 12px;
   border-radius: 6px;
   cursor: pointer;
   font-weight: 500;
+  font-size: 14px;
   transition: background-color 0.2s;
+  white-space: nowrap;
 }
 
 .toolbar button:hover {
@@ -44,21 +50,50 @@ body {
 .nav-controls, .zoom-controls {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
+  font-size: 14px;
 }
 
-/* Khu vực hiển thị trang PDF */
+/* Khu vực hiển thị file PDF */
 .pdf-container {
   flex: 1;
   overflow: auto;
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  padding: 20px;
+  padding: 15px;
+  -webkit-overflow-scrolling: touch; /* Giúp vuốt mượt trên iPhone/Android */
 }
 
 canvas {
+  max-width: 100%;
+  height: auto !important;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   border-radius: 4px;
   background-color: #ffffff;
+}
+
+/* Tối ưu riêng cho màn hình điện thoại (dưới 768px) */
+@media screen and (max-width: 768px) {
+  .toolbar {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 8px 12px;
+  }
+
+  .nav-controls, .zoom-controls {
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .toolbar button {
+    flex: 1;
+    padding: 10px 8px;
+    font-size: 13px;
+    text-align: center;
+  }
+
+  .pdf-container {
+    padding: 8px;
+  }
 }
